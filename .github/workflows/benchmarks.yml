@@ -1,0 +1,53 @@
+# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
+
+on:
+    schedule:
+        - cron: "0 12 * * *"
+
+name: "Benchmarks"
+
+jobs:
+    run:
+        name: "Grumphp"
+        runs-on: ${{ matrix.operating-system }}
+        strategy:
+            fail-fast: false
+            matrix:
+                operating-system: [ubuntu-latest, windows-latest, macOS-latest]
+                php-versions: ['7.4']
+
+        steps:
+            - name: Set git to use LF
+              run: |
+                  git config --global core.autocrlf false
+                  git config --global core.eol lf
+
+            - name: Checkout
+              uses: actions/checkout@v2.3.2
+              with:
+                  fetch-depth: 1
+
+            - name: Install PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php-versions }}
+                  extensions: mbstring
+                  coverage: none
+                  ini-values: post_max_size=256M, short_open_tag=On
+
+            - name: Get composer cache directory
+              id: composercache
+              run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+            - name: Cache dependencies
+              uses: actions/cache@v2
+              with:
+                  path: ${{ steps.composercache.outputs.dir }}
+                  key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+                  restore-keys: ${{ runner.os }}-composer-
+
+            - name: Install dependencies
+              run: composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader
+
+            - name: Benchmarks
+              run: composer bench

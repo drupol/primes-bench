@@ -1,0 +1,41 @@
+{
+    "name": "drupol/primes-bench",
+    "type": "library",
+    "description": "A playground for benchmarking Prime numbers iterators.",
+    "keywords": [
+        "primes",
+        "iterator"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Pol Dellaiera",
+            "email": "pol.dellaiera@protonmail.com"
+        }
+    ],
+    "require": {
+        "php": ">= 7.4",
+        "phpbench/phpbench": "^0.17.1"
+    },
+    "require-dev": {
+        "drupol/php-conventions": "^1.8.18",
+        "phpspec/phpspec": "^6.2"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "drupol\\primes\\": "./src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "drupol\\primes\\benchmarks\\": "./benchmarks/"
+        }
+    },
+    "scripts": {
+        "bench": "phpbench run --report=test",
+        "grumphp": "grumphp run"
+    }
+}

@@ -1,0 +1,8 @@
+imports:
+  - { resource: vendor/drupol/php-conventions/config/php73/grumphp.yml }
+
+parameters:
+  extra_tasks:
+    phpspec: ~
+  skip_tasks:
+     - phpstan
