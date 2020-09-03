@@ -3,7 +3,7 @@
 
 # Prime numbers generators benchmarks
 
-Work in progress
+Context: https://not-a-number.io/2020/prime-numbers-generation/
 
 # Usage
 
