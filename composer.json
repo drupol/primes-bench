@@ -18,7 +18,7 @@
         "phpbench/phpbench": "^0.17.1"
     },
     "require-dev": {
-        "drupol/php-conventions": "^1.8.18",
+        "drupol/php-conventions": "^1.8.18 || ^3.0.0",
         "phpspec/phpspec": "^6.2"
     },
     "config": {
