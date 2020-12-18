@@ -19,7 +19,7 @@
     },
     "require-dev": {
         "drupol/php-conventions": "^1.8.18 || ^3.0.0",
-        "phpspec/phpspec": "^6.2"
+        "phpspec/phpspec": "^6.2 || ^7.0"
     },
     "config": {
         "process-timeout": 0,
