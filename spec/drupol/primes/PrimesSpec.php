@@ -8,6 +8,7 @@ use ArrayIterator;
 use drupol\primes\Primes;
 use drupol\primes\Primes2;
 use drupol\primes\Primes3;
+use drupol\primes\Primes4;
 use PhpSpec\ObjectBehavior;
 
 class PrimesSpec extends ObjectBehavior
@@ -24,6 +25,9 @@ class PrimesSpec extends ObjectBehavior
 
         $this::generator($list3)
             ->shouldIterateAs(Primes3::generator($list4));
+
+        $this::generator($list3)
+            ->shouldIterateAs(Primes4::generator($list4));
     }
 
     public function it_is_initializable()

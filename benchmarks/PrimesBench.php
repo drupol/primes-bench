@@ -8,6 +8,7 @@ use drupol\primes\Iterator\ListIterator;
 use drupol\primes\Primes;
 use drupol\primes\Primes2;
 use drupol\primes\Primes3;
+use drupol\primes\Primes4;
 use Iterator;
 use PhpBench\Benchmark\Metadata\Annotations\Groups;
 use PhpBench\Benchmark\Metadata\Annotations\Iterations;
@@ -40,6 +41,11 @@ class PrimesBench
     public function benchPrimes3(): void
     {
         $this->loop(Primes3::generator($this->list));
+    }
+
+    public function benchPrimes4(): void
+    {
+        $this->loop(Primes4::generator($this->list));
     }
 
     public function init(): void
