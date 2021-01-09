@@ -31,9 +31,8 @@ abstract class AbstractPrimes
         );
 
         $iterator->next();
+        $iterator->valid();
 
-        return $iterator->valid() ?
-            yield from self::sieve($iterator) :
-            null;
+        return yield from self::sieve($iterator);
     }
 }
