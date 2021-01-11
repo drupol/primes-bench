@@ -8,26 +8,33 @@ use ArrayIterator;
 use drupol\primes\Primes;
 use drupol\primes\Primes2;
 use drupol\primes\Primes3;
+use drupol\primes\Primes4;
+use Iterator;
 use PhpSpec\ObjectBehavior;
 
 class PrimesSpec extends ObjectBehavior
 {
     public function it_can_find_prime_numbers()
     {
-        $list1 = new ArrayIterator(range(2, 10000));
-        $list2 = new ArrayIterator(range(2, 10000));
-        $list3 = new ArrayIterator(range(2, 10000));
-        $list4 = new ArrayIterator(range(2, 10000));
+        $this::generator($this->generateInitList())
+            ->shouldIterateAs(Primes2::generator($this->generateInitList()));
 
-        $this::generator($list1)
-            ->shouldIterateAs(Primes2::generator($list2));
+        $this::generator($this->generateInitList())
+            ->shouldIterateAs(Primes3::generator($this->generateInitList()));
 
-        $this::generator($list3)
-            ->shouldIterateAs(Primes3::generator($list4));
+        $this::generator($this->generateInitList())
+            ->shouldIterateAs(Primes4::generator($this->generateInitList()));
     }
 
     public function it_is_initializable()
     {
         $this->shouldHaveType(Primes::class);
+    }
+
+    private function generateInitList(): Iterator
+    {
+        $input = range(2, 10000);
+
+        return new ArrayIterator($input);
     }
 }

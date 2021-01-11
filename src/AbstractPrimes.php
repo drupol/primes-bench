@@ -5,20 +5,14 @@ declare(strict_types=1);
 namespace drupol\primes;
 
 use CallbackFilterIterator;
-use drupol\primes\Iterator\ListIterator;
 use Generator;
 use Iterator;
 
 abstract class AbstractPrimes
 {
-    public static function generator(?Iterator $init = null): Generator
+    public static function generator(Iterator $init): Generator
     {
-        return yield from static::sieve(
-            $init ?? new ListIterator(
-                2,
-                static fn (int $n): int => $n + 1
-            )
-        );
+        return yield from static::sieve($init);
     }
 
     protected static function sieve(Iterator $iterator): ?Generator
@@ -31,8 +25,9 @@ abstract class AbstractPrimes
         );
 
         $iterator->next();
-        $iterator->valid();
 
-        return yield from self::sieve($iterator);
+        return $iterator->valid() ?
+            yield from self::sieve($iterator) :
+            null;
     }
 }
