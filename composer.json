@@ -15,7 +15,7 @@
     ],
     "require": {
         "php": ">= 7.4",
-        "phpbench/phpbench": "^0.17.1"
+        "phpbench/phpbench": "^0.17.1 || ^1.0.0"
     },
     "require-dev": {
         "drupol/php-conventions": "^1.8.18 || ^3.0.0",
