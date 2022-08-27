@@ -35,6 +35,8 @@ jobs:
 
             - name: Install dependencies
               uses: ramsey/composer-install@v2
+              with:
+                  composer-options: "--no-dev"
 
             - name: Benchmarks
               run: composer bench
