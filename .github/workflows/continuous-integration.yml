@@ -1,21 +1,37 @@
 # https://help.github.com/en/categories/automating-your-workflow-with-github-actions
 
 on:
-    - pull_request
-    - push
+    push:
+        paths:
+            - "**.php"
+        branches:
+            - master
+    pull_request:
+        paths:
+            - "**.php"
 
 name: "Continuous Integration"
 
 jobs:
-    run:
-        name: "Grumphp"
+    supported-versions-matrix:
+        name: Supported Versions Matrix
+        runs-on: ubuntu-latest
+        outputs:
+            version: ${{ steps.supported-versions-matrix.outputs.version }}
+        steps:
+            - uses: actions/checkout@v3
+            - id: supported-versions-matrix
+              uses: WyriHaximus/github-action-composer-php-versions-in-range@v1
+    tests:
+        name: "Unit Tests"
         runs-on: ${{ matrix.operating-system }}
+        needs:
+            - supported-versions-matrix
         strategy:
             fail-fast: false
             matrix:
                 operating-system: [ubuntu-latest, windows-latest, macOS-latest]
-                php-versions: ['7.4']
-
+                php: ${{ fromJson(needs.supported-versions-matrix.outputs.version) }}
         steps:
             - name: Set git to use LF
               run: |
@@ -24,36 +40,15 @@ jobs:
 
             - name: Checkout
               uses: actions/checkout@v3
-              with:
-                  fetch-depth: 1
 
             - name: Install PHP
-              uses: shivammathur/setup-php@2.18.1
+              uses: shivammathur/setup-php@v2
               with:
-                  php-version: ${{ matrix.php-versions }}
-                  extensions: mbstring
-                  coverage: none
-
-            - name: Get composer cache directory
-              id: composercache
-              run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-
-            - name: Cache dependencies
-              uses: actions/cache@v3
-              with:
-                  path: ${{ steps.composercache.outputs.dir }}
-                  key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
-                  restore-keys: ${{ runner.os }}-composer-
+                  php-version: ${{ matrix.php }}
+                  coverage: pcov
 
             - name: Install dependencies
-              run: composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader
+              uses: ramsey/composer-install@v2
 
             - name: Run Grumphp
-              run: vendor/bin/grumphp run --no-ansi -n
-              env:
-                  STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
-
-            - name: Benchmarks
-              run: |
-                  composer bench
-              continue-on-error: true
+              run: vendor/bin/grumphp run

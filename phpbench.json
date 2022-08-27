@@ -1,20 +1,13 @@
 {
-    "bootstrap": "vendor/autoload.php",
-    "path": "benchmarks",
-    "xml_storage_path": "build/benchmarks",
-    "progress": "verbose",
-    "reports": {
+    "$schema": "./vendor/phpbench/phpbench/phpbench.schema.json",
+    "runner.bootstrap": "vendor/autoload.php",
+    "runner.path": "benchmarks",
+    "storage.xml_storage_path": "build/benchmarks",
+    "runner.progress": "verbose",
+    "report.generators": {
         "test": {
             "extends": "aggregate",
-            "cols": [
-                "benchmark",
-                "suite",
-                "subject",
-                "mean",
-                "mem_peak",
-                "mem_real",
-                "diff"
-            ]
+            "cols": ["benchmark", "suite", "subject", "mean", "mem_peak", "mem_real", "diff"]
         }
     }
 }

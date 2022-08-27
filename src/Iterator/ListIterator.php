@@ -33,7 +33,7 @@ final class ListIterator implements Iterator
         $this->key = 0;
     }
 
-    public function current()
+    public function current(): mixed
     {
         return $this->current;
     }

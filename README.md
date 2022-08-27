@@ -1,5 +1,5 @@
 [![Continuous Integration](https://github.com/drupol/primes-bench/workflows/Continuous%20Integration/badge.svg)](https://github.com/drupol/primes-bench/actions?query=workflow%3A%22Continuous+Integration%22)
- [![Benchmarks](https://github.com/drupol/primes-bench/workflows/Benchmarks/badge.svg)](https://github.com/drupol/primes-bench/actions?query=workflow%3ABenchmarks)
+[![Benchmarks](https://github.com/drupol/primes-bench/workflows/Benchmarks/badge.svg)](https://github.com/drupol/primes-bench/actions?query=workflow%3ABenchmarks)
 
 # Prime numbers generators benchmarks
 

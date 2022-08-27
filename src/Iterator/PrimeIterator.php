@@ -39,7 +39,7 @@ final class PrimeIterator implements Iterator
         }
     }
 
-    public function rewind()
+    public function rewind(): void
     {
     }
 
