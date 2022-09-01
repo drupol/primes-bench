@@ -7,7 +7,7 @@
     "report.generators": {
         "test": {
             "extends": "aggregate",
-            "cols": ["benchmark", "subject", "mean", "mem_peak", "diff"]
+            "cols": ["benchmark", "subject", "mean", "mem_peak"]
         }
     }
 }
